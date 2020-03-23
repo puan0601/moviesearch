@@ -12,7 +12,7 @@ class App extends Component {
 
     fetch(`${POPULAR}?api_key=${KEY}`)
       .then(response => response.json())
-      .then(data => this.setState({ popularList: data.results })) 
+      .then(data => this.setState({ popularList: data.results.splice(0,10) })) 
   }
   
   render() {
@@ -20,11 +20,13 @@ class App extends Component {
     
     return (
       <div className="App">
-        <ol>
+        <h1>Search any movie!</h1>
+        <h2>Most Popular Movies of Today</h2>
+        <div className="container">
           {popularList.map(movie => {
-            return <li key={movie.id}>{movie.title}</li>
+            return <div className="item" key={movie.id}>{movie.title}</div>
           })}
-        </ol>
+        </div>
       </div>
     )  
   }
