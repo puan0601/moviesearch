@@ -1,24 +1,23 @@
 .popularContainer {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-gap: 1%;
+    grid-gap: 2%;
 }
 
 .dataContainer {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 1%;
+    grid-gap: 1.5%;
 }
 
 .popularItem {
-    
+    font-size: 2vw;
 }
 
 .item {
-    box-shadow: .1em .1em .1em rgba(0, 0, 0, 0.2);
+    box-shadow: .1em .1em .1em .1em rgba(0, 0, 0, 0.2);
     padding: 2%;
     animation: color_change 1s;
-    transition: all 0.5s ease-in-out;
     font-size: 3vw;
 }
 
@@ -30,16 +29,26 @@ input {
    width: 80% ;
 }
 
+img {
+    width: 100%;
+}
+
+#selected {
+    background-color: yellow;
+    font-size: 2.5vw;
+}
+
+.smallGray {
+    font-size: 2vw;
+    color: gray;
+}
+
 @keyframes color_change {
     0% {
         color: white;
     }
 
     100% {
-        color: #003262;;
+        color: black;;
     }
-}
-
-img {
-    width: 80%;
 }

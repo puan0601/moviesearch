@@ -58,9 +58,9 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1>Search any movie below</h1>
+        <h3>Search any movie below</h3>
         
-        {popularListRender && <h2>Most Popular Movies of Today</h2>}
+        {popularListRender && <h4>Most Popular Movies of Today</h4>}
         <div className="popularContainer">
           {popularList.map(movie => {
             return <div className="popularItem" 
@@ -78,7 +78,7 @@ class App extends Component {
                 onChange={this.handleInputChange} />
         </form> 
         
-        {input && data && <h3>Results ({data.length})</h3>}
+        {input && data && <h4>Results ({data.length}) <span className="smallGray"> click on each to view more info</span></h4>}
         <div className="dataContainer">
           {data && data.map(movie => {
             if (selectedItemID === movie.id) {
@@ -90,9 +90,9 @@ class App extends Component {
                   onClick={this.handleItemClick}
                 >
                   <h1>{movie.title}</h1>
+                  {movie.poster_path && <img alt={movie.title} src={`${IMG_URL}${movie.poster_path}`} />}
                   <p><b>Release Date:</b> {movie.release_date}</p>
                   <p><b>Overview:</b> {movie.overview}</p>
-                  <img alt={movie.title} src={`${IMG_URL}${movie.poster_path}`} />
                 </div> 
               )
             }
