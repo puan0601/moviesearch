@@ -1,5 +1,45 @@
-.container {
+.popularContainer {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto;
+    grid-gap: 1%;
+}
+
+.dataContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 1%;
+}
+
+.popularItem {
+    
+}
+
+.item {
+    box-shadow: .1em .1em .1em rgba(0, 0, 0, 0.2);
+    padding: 2%;
+    animation: color_change 1s;
+    transition: all 0.5s ease-in-out;
+    font-size: 3vw;
+}
+
+.item:hover {
+    background-color: yellow;
+}
+
+input {
+   width: 80% ;
+}
+
+@keyframes color_change {
+    0% {
+        color: white;
+    }
+
+    100% {
+        color: #003262;;
+    }
+}
+
+img {
+    width: 80%;
 }
