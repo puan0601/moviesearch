@@ -64,6 +64,10 @@ img {
     font-size: 1em;
 }
 
+#disclaimer {
+    font-size: .3em;
+}
+
 @keyframes color_change {
     0% {
         color: #edf5e1;

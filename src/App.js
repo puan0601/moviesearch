@@ -97,6 +97,7 @@ class App extends Component {
                 onChange={this.handleInputChange} 
                 autoFocus 
           />
+          <p id="disclaimer">DISCLAIMER: "This product uses the TMDb API but is not endorsed or certified by TMDb."</p>
         </form> 
         {/* dataSpinner while data is loading */}
         {dataLoading && <div class="lds-ring"><div></div><div></div><div></div><div></div></div>}
@@ -133,7 +134,7 @@ class App extends Component {
               </div>
             );
           })}
-        </div>     
+        </div> 
       </div>
     )  
   }
