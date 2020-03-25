@@ -17,25 +17,26 @@ class App extends Component {
       selectedItemID: null,
       data: [],
     };
-
-    this.debounced = debounce(this.getData, 1000);
+    // limits API call to happen only after input stops for 500ms
+    this.debounced = debounce(this.fetchData, 500);
   }
-
+  // when a user types in the search input
   handleInputChange = (event) => {
     const { value } = event.target;
 
     this.setState({ 
       input: value,
     });
-
+    // makes the fetchData call with debouncing
     this.debounced(value);    
   }
-
+  // when a user clicks on an item
   handleItemClick = (event) => {
     this.setState({ selectedItemID: parseInt(event.target.getAttribute('itemID')) });
   }
 
-  getData = (value) => {
+  // queries movie search api based on input value
+  fetchData = (value) => {
     fetch(`${API_URL}search/movie?api_key=${KEY}&query=${value}`)
       .then(response => response.json())
       .then(data => this.setState({
@@ -43,14 +44,19 @@ class App extends Component {
       }))
   }
 
+  // queries popular list of movies and takes 10 top 
+  fetchPopularList = () => {
+    fetch(`${API_URL}movie/popular?api_key=${KEY}`)
+      .then(response => response.json())
+      .then(data => this.setState({
+        popularList: data.results.splice(0, 10),
+        popularListRender: true
+      })) 
+  }
+
   // grabs top 10 popular movies list from themoviedb.org 
   componentDidMount() {
-    fetch(`${API_URL}movie/popular?api_key=${KEY}`)
-      .then(response => response.json()) 
-      .then(data => this.setState({ 
-        popularList: data.results.splice(0,10),
-        popularListRender: true  
-      })) 
+    this.fetchPopularList();
   }
   
   render() {
@@ -59,28 +65,34 @@ class App extends Component {
     return (
       <div className="App">
         <div>Search any movie from TheMovieDB.org</div>
+        
         {popularListRender && <div className="popular">Most Popular Movies of Today</div>}
         <div className="popularContainer">
           {popularList.map(movie => {
+            const { id, title } = movie
             return <div className="popularItem" 
-                        key={movie.id}
+                        key={id}
                     >
-                        {movie.title}
+                        {title}
                     </div>
           })}
         </div>
 
         <form onSubmit={(e) => e.preventDefault()}>
           <input value={this.state.input} 
-                placeholder="Enter movie title here to start" 
+                type="search"
+                placeholder="Enter movie title here" 
                 onChange={this.handleInputChange} 
                 autoFocus 
           />
         </form> 
         
-        {input && data && <div>Results ({data.length}) <span className="smallGray"> click on each to view more info</span></div>}
+        {input && data && <div>Results ({data.length}) <span className="smallGray"> 
+          click on each result to view more info</span></div>}
+          
         <div className="dataContainer">
           {data && data.map(movie => {
+            const { title, poster_path, release_date, overview, vote_count } = movie;
             if (selectedItemID === movie.id) {
               return (
                 <div className="item"
@@ -89,21 +101,22 @@ class App extends Component {
                   itemID={movie.id}
                   onClick={this.handleItemClick}
                 >
-                  <div>{movie.title}</div>
-                  {movie.poster_path && <img alt={movie.title} src={`${IMG_URL}${movie.poster_path}`} />}
-                  <p><b>Release Date:</b> {movie.release_date}</p>
-                  <p><b>Overview:</b> {movie.overview}</p>
-                  <p><b>Vote Count:</b> {movie.vote_count}</p>
+                  <div><b>{title}</b></div>
+                  {poster_path && <img alt={title} src={`${IMG_URL}${poster_path}`} />}
+                  <div><b>Release Date:</b> {release_date}</div>
+                  <div><b>Overview:</b> {overview}</div>
+                  <div><b>Vote Count:</b> {vote_count}</div>
                 </div> 
               )
             }
+
             return (
               <div className="item" 
                         key={movie.id}
                         itemID={movie.id}
                         onClick={this.handleItemClick}
-                    >
-                        {movie.title}
+              >
+                {title}
               </div>
             );
           })}
