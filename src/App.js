@@ -93,6 +93,7 @@ class App extends Component {
                   {movie.poster_path && <img alt={movie.title} src={`${IMG_URL}${movie.poster_path}`} />}
                   <p><b>Release Date:</b> {movie.release_date}</p>
                   <p><b>Overview:</b> {movie.overview}</p>
+                  <p><b>Vote Count:</b> {movie.vote_count}</p>
                 </div> 
               )
             }
