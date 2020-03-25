@@ -58,9 +58,8 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h3>Search any movie below</h3>
-        
-        {popularListRender && <h4>Most Popular Movies of Today</h4>}
+        <div>Search any movie from TheMovieDB.org</div>
+        {popularListRender && <div>Most Popular Movies of Today</div>}
         <div className="popularContainer">
           {popularList.map(movie => {
             return <div className="popularItem" 
@@ -72,13 +71,14 @@ class App extends Component {
         </div>
 
         <form onSubmit={(e) => e.preventDefault()}>
-          <input autoFocus 
-                value={this.state.input} 
-                placeholder="Enter Movie Title" 
-                onChange={this.handleInputChange} />
+          <input value={this.state.input} 
+                placeholder="Enter movie title here to start" 
+                onChange={this.handleInputChange} 
+                autoFocus 
+          />
         </form> 
         
-        {input && data && <h4>Results ({data.length}) <span className="smallGray"> click on each to view more info</span></h4>}
+        {input && data && <div>Results ({data.length}) <span className="smallGray"> click on each to view more info</span></div>}
         <div className="dataContainer">
           {data && data.map(movie => {
             if (selectedItemID === movie.id) {
@@ -89,7 +89,7 @@ class App extends Component {
                   itemID={movie.id}
                   onClick={this.handleItemClick}
                 >
-                  <h1>{movie.title}</h1>
+                  <div>{movie.title}</div>
                   {movie.poster_path && <img alt={movie.title} src={`${IMG_URL}${movie.poster_path}`} />}
                   <p><b>Release Date:</b> {movie.release_date}</p>
                   <p><b>Overview:</b> {movie.overview}</p>
