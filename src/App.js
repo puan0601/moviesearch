@@ -42,6 +42,9 @@ class App extends Component {
       .then(data => this.setState({
         data: data.results
       }))
+      .catch((error) => {
+        console.log(`fetchData error message: ${error}`)
+      })
   }
 
   // queries popular list of movies and takes 10 top 
@@ -52,6 +55,9 @@ class App extends Component {
         popularList: data.results.splice(0, 10),
         popularListRender: true
       })) 
+      .catch((error) => {
+        console.log(`fetchPopularList error message: ${error}`)
+      })
   }
 
   // grabs top 10 popular movies list from themoviedb.org 
