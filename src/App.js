@@ -53,11 +53,12 @@ class App extends Component {
       })
   }
 
-  // queries popular list of movies and takes 10 top 
+  // queries popular list of movies
   fetchPopularList = () => {
     fetch(`${API_URL}movie/popular?api_key=${KEY}`)
       .then(response => response.json())
       .then(data => this.setState({
+        // takes top 10 results
         popularList: data.results.splice(0, 10),
         popularListRender: true
       })) 
@@ -66,13 +67,17 @@ class App extends Component {
       })
   }
 
-  // grabs top 10 popular movies list from themoviedb.org 
   componentDidMount() {
     this.fetchPopularList();
   }
   
   render() {
-    const { popularList, popularListRender, data, selectedItemID, input, dataLoading, query } = this.state;
+    const { popularList, 
+            popularListRender, 
+            data, 
+            selectedItemID, 
+            dataLoading 
+          } = this.state;
 
     return (
       <div className="App">
@@ -107,6 +112,7 @@ class App extends Component {
         <div className="dataContainer">
           {data && data.map(movie => {
             const { title, poster_path, release_date, overview, vote_count } = movie;
+            {/* when a result is selected */}
             if (selectedItemID === movie.id) {
               return (
                 <div className="item"
@@ -123,7 +129,7 @@ class App extends Component {
                 </div> 
               )
             }
-
+            {/* unselected results */}
             return (
               <div className="item" 
                         key={movie.id}
