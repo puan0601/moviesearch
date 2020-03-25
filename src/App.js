@@ -14,8 +14,10 @@ class App extends Component {
       popularList: [],
       popularListRender: false,
       input: '',
+      query: '',
       selectedItemID: null,
       data: [],
+      dataLoading: false
     };
     // limits API call to happen only after input stops for 500ms
     this.debounced = debounce(this.fetchData, 500);
@@ -26,11 +28,13 @@ class App extends Component {
 
     this.setState({ 
       input: value,
+      dataLoading: true,
+      data: []
     });
     // makes the fetchData call with debouncing
     this.debounced(value);    
   }
-  // when a user clicks on an item
+  // when a user clicks on an item it sets the selectedItemID 
   handleItemClick = (event) => {
     this.setState({ selectedItemID: parseInt(event.target.getAttribute('itemID')) });
   }
@@ -40,7 +44,9 @@ class App extends Component {
     fetch(`${API_URL}search/movie?api_key=${KEY}&query=${value}`)
       .then(response => response.json())
       .then(data => this.setState({
-        data: data.results
+        data: data.results,
+        query: value,
+        dataLoading: false
       }))
       .catch((error) => {
         console.log(`fetchData error message: ${error}`)
@@ -66,7 +72,7 @@ class App extends Component {
   }
   
   render() {
-    const { popularList, popularListRender, data, selectedItemID, input } = this.state;
+    const { popularList, popularListRender, data, selectedItemID, input, dataLoading, query } = this.state;
 
     return (
       <div className="App">
@@ -92,8 +98,9 @@ class App extends Component {
                 autoFocus 
           />
         </form> 
-        
-        {input && data && <div>Results ({data.length}) <span className="smallGray"> 
+        {/* dataSpinner while data is loading */}
+        {dataLoading && <div class="lds-ring"><div></div><div></div><div></div><div></div></div>}
+        {data && data.length > 0 && <div>Results ({data.length}) <span className="smallGray"> 
           click on each result to view more info</span></div>}
           
         <div className="dataContainer">
