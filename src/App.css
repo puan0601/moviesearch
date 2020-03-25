@@ -1,3 +1,22 @@
+html {
+    font-size: calc(1em + 1vw);
+}
+
+body {
+    width: 80%;
+    margin: 0 auto;
+    padding: 1em;
+    font-family: 'Sf ui display', sans-serif;
+    font-weight: 400;
+    background-color: #5cdb95;
+    color: #05386b;
+}
+
+.popular {
+    font-size: .7em;
+    padding-left: .5em;
+    color: gray;
+}
 .popularContainer {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -11,14 +30,15 @@
 }
 
 .popularItem {
-    font-size: 1vw;
+    font-size: .5em;
+    color: #edf5e1;
 }
 
 .item {
     box-shadow: .1em .1em .1em .1em rgba(0, 0, 0, 0.2);
     padding: 2%;
     animation: color_change 1s;
-    font-size: 3vw;
+    font-size: .8em;
 }
 
 .item:hover {
@@ -35,11 +55,11 @@ img {
 
 #selected {
     background-color: yellow;
-    font-size: 2.5vw;
+    font-size: 1em;
 }
 
 .smallGray {
-    font-size: 2vw;
+    font-size: .55em;
     color: gray;
 }
 
@@ -53,11 +73,14 @@ img {
     }
 }
 
-/* @media (min-width: 1000px) { 
+@media (max-width: 1100px) {
+    .popularContainer {
+        grid-template-columns: 1fr 1fr 1fr;
+    } 
     .dataContainer {
         grid-template-columns: 1fr 1fr 1fr;
     }
-} */
+} 
 @media (max-width: 750px) { 
     .popularContainer{
         grid-template-columns: 1fr 1fr;
@@ -71,9 +94,7 @@ img {
     .popularContainer {
         grid-template-columns: 1fr;
     }
-    .popularItem {
-        font-size: 2vw;
-    }
+
     .dataContainer {
         grid-template-columns: 1fr;
     }

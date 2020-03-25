@@ -59,7 +59,7 @@ class App extends Component {
     return (
       <div className="App">
         <div>Search any movie from TheMovieDB.org</div>
-        {popularListRender && <div>Most Popular Movies of Today</div>}
+        {popularListRender && <div className="popular">Most Popular Movies of Today</div>}
         <div className="popularContainer">
           {popularList.map(movie => {
             return <div className="popularItem" 
